@@ -49,7 +49,7 @@ func (r *Renderer) getTemplateFromDiskAndCache(page string) (*template.Template,
 
 func (r *Renderer) getTemplateFromDisk(page string) (*template.Template, error) {
 	t, err := template.ParseFiles("./templates/" + page)
-	t, err = t.ParseGlob("./templates/*.layout.tmpl")
+	t, err = t.ParseGlob("./templates/*.layout.gohtml")
 	if err != nil {
 		return nil, err
 	}
