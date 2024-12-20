@@ -19,6 +19,11 @@ func (r *Router) Routes() http.Handler {
 
 	mux.Get("/", handlers.NewHandler(r.app).Home)
 	mux.Get("/about", handlers.NewHandler(r.app).About)
+	mux.Get("/generals-quarters", handlers.NewHandler(r.app).Generals)
+	mux.Get("/majors-suite", handlers.NewHandler(r.app).Majors)
+	mux.Get("/search-availability", handlers.NewHandler(r.app).SearchAvailablity)
+	mux.Get("/contact", handlers.NewHandler(r.app).Contact)
+	mux.Get("/make-reservation", handlers.NewHandler(r.app).MakeReservation)
 
 	fileServer := http.FileServer(http.Dir("./static/"))
 	mux.Handle("/static/*", http.StripPrefix("/static", fileServer))
