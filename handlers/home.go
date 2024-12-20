@@ -10,5 +10,5 @@ import (
 func (h *Handler) Home(w http.ResponseWriter, r *http.Request) {
 	remoteIP := r.RemoteAddr
 	h.app.SessionManager.Put(r.Context(), "remote_ip", remoteIP)
-	renderers.NewRenderer(h.app).RenderTemplate(w, "home.page.gohtml", &models.TemplateData{})
+	renderers.NewRenderer(h.app).RenderTemplate(w, r, "home.page.gohtml", &models.TemplateData{})
 }

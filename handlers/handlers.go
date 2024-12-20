@@ -19,21 +19,25 @@ func NewHandler(app *configs.AppConfig) *Handler {
 }
 
 func (h *Handler) Generals(w http.ResponseWriter, r *http.Request) {
-	renderers.NewRenderer(h.app).RenderTemplate(w, "generals.page.gohtml", &models.TemplateData{})
+	renderers.NewRenderer(h.app).RenderTemplate(w, r, "generals.page.gohtml", &models.TemplateData{})
 }
 
 func (h *Handler) Majors(w http.ResponseWriter, r *http.Request) {
-	renderers.NewRenderer(h.app).RenderTemplate(w, "majors.page.gohtml", &models.TemplateData{})
+	renderers.NewRenderer(h.app).RenderTemplate(w, r, "majors.page.gohtml", &models.TemplateData{})
 }
 
 func (h *Handler) SearchAvailablity(w http.ResponseWriter, r *http.Request) {
-	renderers.NewRenderer(h.app).RenderTemplate(w, "search-availability.page.gohtml", &models.TemplateData{})
+	renderers.NewRenderer(h.app).RenderTemplate(w, r, "search-availability.page.gohtml", &models.TemplateData{})
+}
+
+func (h *Handler) PostSearchAvailablity(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Hello world"))
 }
 
 func (h *Handler) Contact(w http.ResponseWriter, r *http.Request) {
-	renderers.NewRenderer(h.app).RenderTemplate(w, "contact.page.gohtml", &models.TemplateData{})
+	renderers.NewRenderer(h.app).RenderTemplate(w, r, "contact.page.gohtml", &models.TemplateData{})
 }
 
 func (h *Handler) MakeReservation(w http.ResponseWriter, r *http.Request) {
-	renderers.NewRenderer(h.app).RenderTemplate(w, "make-reservation.page.gohtml", &models.TemplateData{})
+	renderers.NewRenderer(h.app).RenderTemplate(w, r, "make-reservation.page.gohtml", &models.TemplateData{})
 }

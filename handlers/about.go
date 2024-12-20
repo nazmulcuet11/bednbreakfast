@@ -16,7 +16,7 @@ func (h *Handler) About(w http.ResponseWriter, r *http.Request) {
 	stringMap["remote_ip"] = remoteIP
 
 	// send data to the template
-	renderers.NewRenderer(h.app).RenderTemplate(w, "about.page.gohtml", &models.TemplateData{
+	renderers.NewRenderer(h.app).RenderTemplate(w, r, "about.page.gohtml", &models.TemplateData{
 		Data: stringMap,
 	})
 }

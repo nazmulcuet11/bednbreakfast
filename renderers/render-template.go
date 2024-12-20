@@ -5,17 +5,18 @@ import (
 	"html/template"
 	"net/http"
 
+	"github.com/justinas/nosurf"
 	"github.com/nazmulcuet11/bednbreakfast/models"
 )
 
 // RenderTemplate renders a template
-func (r *Renderer) RenderTemplate(w http.ResponseWriter, page string, td *models.TemplateData) {
+func (r *Renderer) RenderTemplate(w http.ResponseWriter, req *http.Request, page string, td *models.TemplateData) {
 	tmpl, err := r.getTemplate(page)
 	if err != nil {
 		r.app.ErrorLogger.Fatal(err)
 	}
 
-	td = r.addDefaultData(td)
+	td = r.addDefaultData(td, req)
 	err = tmpl.Execute(w, td)
 	if err != nil {
 		fmt.Println("error writing template to browser", err)
@@ -56,6 +57,7 @@ func (r *Renderer) getTemplateFromDisk(page string) (*template.Template, error) 
 	return t, nil
 }
 
-func (r *Renderer) addDefaultData(td *models.TemplateData) *models.TemplateData {
+func (r *Renderer) addDefaultData(td *models.TemplateData, req *http.Request) *models.TemplateData {
+	td.CSRFToken = nosurf.Token(req)
 	return td
 }
