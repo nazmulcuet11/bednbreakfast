@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/nazmulcuet11/bednbreakfast/configs"
@@ -32,6 +33,20 @@ func (h *Handler) SearchAvailablity(w http.ResponseWriter, r *http.Request) {
 
 func (h *Handler) PostSearchAvailablity(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Hello world"))
+}
+
+func (h *Handler) PostSearchAvailablityJSON(w http.ResponseWriter, r *http.Request) {
+	response := struct {
+		Ok      bool   `json:"ok"`
+		Message string `json:"message"`
+	}{
+		Ok:      true,
+		Message: "Hello there!",
+	}
+	w.Header().Set("Content-Type", "application/json")
+	if err := json.NewEncoder(w).Encode(response); err != nil {
+		http.Error(w, "Failed to encode response", http.StatusInternalServerError)
+	}
 }
 
 func (h *Handler) Contact(w http.ResponseWriter, r *http.Request) {

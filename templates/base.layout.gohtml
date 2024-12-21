@@ -207,22 +207,22 @@
                     title = "",
                 } = c;
 
-                const { value: formValues } = await Swal.fire({
+                const { value: result } = await Swal.fire({
                     title: title,
                     html: msg,
-                    backdrop: false,
+                    backdrop: true,
                     focusConfirm: false,
                     showCancelButton: true,
+                    allowOutsideClick: true,
                     willOpen: () => {
-                        const elem = document.getElementById("reservation-dates-modal");
-                        const rp = new DateRangePicker(elem, {
-                            format: 'yyyy-mm-dd',
-                            showOnFocus: true,
-                        })
+                        if (c.willOpen != undefined) {
+                            c.willOpen()
+                        }
                     },
                     didOpen: () => {
-                        document.getElementById("start").removeAttribute("disabled");
-                        document.getElementById("end").removeAttribute("disabled");
+                        if (c.didOpen != undefined) {
+                            c.didOpen()
+                        }
                     },
                     preConfirm: () => {
                         return [
@@ -232,8 +232,19 @@
                     }
                 })
 
-                if (formValues) {
-                    Swal.fire(JSON.stringify(formValues))
+                if (result) {
+                    if (c.callback !== undefined) {
+                        if (result.dismiss !== Swal.DismissReason.cancel) {
+                            if (result.value !== "") {
+                                c.callback(result)
+                            } else {
+                                c.callback(false)
+                            }   
+                        } else {
+                            c.callback(false)
+                        }   
+                    }
+                    
                 }
             }
 

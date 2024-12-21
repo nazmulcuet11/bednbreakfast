@@ -23,6 +23,7 @@ func (r *Router) Routes() http.Handler {
 	mux.Get("/majors-suite", handlers.NewHandler(r.app).Majors)
 	mux.Get("/search-availability", handlers.NewHandler(r.app).SearchAvailablity)
 	mux.Post("/search-availability", handlers.NewHandler(r.app).PostSearchAvailablity)
+	mux.Post("/search-availability-json", handlers.NewHandler(r.app).PostSearchAvailablityJSON)
 	mux.Get("/contact", handlers.NewHandler(r.app).Contact)
 	mux.Get("/make-reservation", handlers.NewHandler(r.app).MakeReservation)
 
